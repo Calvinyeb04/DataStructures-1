@@ -48,20 +48,71 @@ public:
       }
     }
 
-    void deleteAtBack() {
-      // check if the head is empty
-      if (head == nullptr) {
+    void deleteAtBack(){
+      //Check if(List = Empty)
+      if(head == nullptr){
         return;
       }
-      // check if there is only one node
-      if (head == tail) {
-        /// mean only have on node in the list
+      //Check if- It only contain: One Node
+      if(head == tail){
+        //Set Both headers = NULL
         head = nullptr;
         tail = nullptr;
         return;
       }
 
-      // Find the 2nd to last ELements
+      //FIND (2nd to Last) Node
+        ///Create Temp - Pointer
+      Node * tempCurrent = head; //set to head- so we can travel the list from head to tail 
+      //While(State: Tell (Temp-Pointer)- to save a spot in line) - set = tail
+      while(tempCurrent -> next!= tail){
+        //Tell (Temp Pointer to go next inline)
+        tempCurrent = tempCurrent -> next;
+      }
+      //Delete Last Node(Elements)
+      delete tail;
+      //Tell Tail: to move to where the current-pointer is standing
+      //Set Tail to where the current pointer is  
+      tail = tempCurrent;//Now the last spot in the LIST
+      //Tell tail to not allow anymore ELEMENTS AFTER THEM
+       tempCurrent -> next = nullptr;
     }
+
+    void deleteAtFront(){
+      Node * backdoorTemp = head;
+      if(head == nullptr){
+        return;
+      }
+
+      head = head -> next;
+
+      if(head == nullptr){
+          tail == nullptr;
+      }
+      
+      delete backdoorTemp;
+    }
+
+
+    void display(){
+      if(head == nullptr){
+        cout << "List Is Empty:" << endl;
+        return;
+      }
+
+      Node* displayPacket = head;
+      while(displayPacket != nullptr){
+        cout << displayPacket -> val;
+      
+
+      if(displayPacket -> next != nullptr){
+        cout << "->" << endl;
+      }
+
+      displayPacket = displayPacket -> next;
+    }
+  }
+  cout << endl;
+
   }
 };
