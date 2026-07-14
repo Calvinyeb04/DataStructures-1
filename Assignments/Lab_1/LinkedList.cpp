@@ -138,6 +138,16 @@ public:
       }
     }
 
+    int peekAtFront() {
+      if(head == nullptr){
+        cout << "List Is Empty"<< endl;
+        return -1;
+      }else{
+        return head -> val;
+      }
+    }
+
+
     void display() {
       if (head == nullptr) {
         cout << "List Is Empty:" << endl;
