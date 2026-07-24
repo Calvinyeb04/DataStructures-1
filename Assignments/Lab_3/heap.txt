@@ -1,0 +1,171 @@
+// ============================================================
+//              MAX-HEAP CLASS (std::vector<int>) - GUIDE
+// ============================================================
+
+Create a class named Heap
+
+    Inside the class, under the private section:
+
+        Declare a variable of type std::vector<int>, call it data
+
+        Create a helper function named parentIndex that accepts one parameter: index, type int
+            Inside the function, calculate index minus 1
+            Divide that result by 2
+            Return that result
+
+        Create a helper function named leftIndex that accepts one parameter: index, type int
+            Inside the function, calculate index multiplied by 2
+            Add 1 to that result
+            Return that result
+
+        Create a helper function named rightIndex that accepts one parameter: index, type int
+            Inside the function, calculate index multiplied by 2
+            Add 2 to that result
+            Return that result
+
+        Create a helper function named swapValues that accepts two parameters: i and j, both type int
+            Inside the function, declare a temporary variable of type int, call it tempSwapHolder
+            Store the value located at data[i] into tempSwapHolder
+            Take the value located at data[j] and assign it into data[i]
+            Take the value stored in tempSwapHolder and assign it into data[j]
+
+
+
+        Create a helper function named bubbleUp that accepts one parameter: startIndex, type int
+            Declare a variable called current, type int
+            Set current equal to startIndex
+
+            Begin a while loop with the condition: current is greater than 0
+                Declare a variable called pIndex, type int
+                Set pIndex equal to the result of calling parentIndex(current)
+
+                Begin an if statement with the condition: data[current] is greater than data[pIndex]
+                    Call swapValues, passing in current and pIndex
+                    Set current equal to pIndex
+
+                Begin an else block
+                    Use the keyword break to exit the while loop
+
+
+
+        Create a helper function named bubbleDown that accepts two parameters: startIndex and boundary, both type int
+            Declare a variable called current, type int
+            Set current equal to startIndex
+
+            Begin a while loop with the condition: true
+                Declare a variable called left, type int
+                Set left equal to the result of calling leftIndex(current)
+
+                Declare a variable called right, type int
+                Set right equal to the result of calling rightIndex(current)
+
+                Declare a variable called largest, type int
+                Set largest equal to current
+
+                Begin an if statement with the condition: left is less than boundary AND data[left] is greater than data[largest]
+                    Set largest equal to left
+
+                Begin a second if statement with the condition: right is less than boundary AND data[right] is greater than data[largest]
+                    Set largest equal to right
+
+                Begin an if statement with the condition: largest is equal to current
+                    Use the keyword break to exit the while loop
+
+                Begin an else block
+                    Call swapValues, passing in current and largest
+                    Set current equal to largest
+
+    Under the public section:
+
+        Create a default constructor called Heap that takes no parameters
+            Leave the body empty
+
+        Create an array constructor called Heap that accepts one parameter: arr, type const std::vector<int>&
+            Inside the body, call the function buildBottomUp, passing in arr
+
+        Create a function called buildTopDown that accepts one parameter: arr, type const std::vector<int>&
+            Begin a for-each loop: for each value called val inside arr
+                Call the function insert, passing in val
+
+        Create a function called buildBottomUp that accepts one parameter: arr, type const std::vector<int>&
+            Set data equal to arr
+            
+            Declare a variable called lastNonLeaf, type int
+            Set lastNonLeaf equal to data.size() divided by 2, then minus 1
+            
+            Begin a for loop: start i at lastNonLeaf, continue while i is greater than or equal to 0, decrease i by 1 each time
+                Call bubbleDown, passing in i and data.size()
+
+        Create a function called insert that accepts one parameter: val, type int
+            Call data.push_back, passing in val
+            
+            Declare a variable called newIndex, type int
+            Set newIndex equal to data.size() minus 1
+            
+            Call bubbleUp, passing in newIndex
+
+        Create a function called deleteRoot that returns type int
+            Begin an if statement with the condition: data.empty() is true
+                Print an error message
+                Return -1
+                
+            Declare a variable called removed, type int
+            Set removed equal to data[0]
+            Set data[0] equal to data.back()
+            
+            Call data.pop_back()
+            
+            Begin an if statement with the condition: data.empty() is true
+                Return removed
+                
+            Call bubbleDown, passing in 0 and data.size()
+            
+            Return removed
+
+        Create a function called display that takes no parameters
+            Print the text "Heap array: "
+            
+            Begin a for loop iterating through every index i from 0 up to data.size() minus 1
+                Print data[i] and a space
+                
+            Print a newline
+
+        Create a function called heapSort that takes no parameters
+            Declare a variable called boundary, type int
+            Set boundary equal to data.size()
+            
+            Begin a while loop with the condition: boundary is greater than 1
+                Call swapValues, passing in 0 and boundary minus 1
+                Decrease boundary by 1
+                Call bubbleDown, passing in 0 and boundary
+                
+            Declare a variable called left, type int
+            Set left equal to 0
+            
+            Declare a variable called right, type int
+            Set right equal to data.size() minus 1
+            
+            Begin a while loop with the condition: left is less than right
+                Call swapValues, passing in left and right
+                Increase left by 1
+                Decrease right by 1
+                
+            Call display()
+
+
+Create the main function
+
+    Create a Heap object using the default constructor, call it myHeap
+    Call myHeap.insert(), passing in a few different test integers
+    Call myHeap.display()
+
+    Call myHeap.insert(), passing in 60
+
+    Declare a variable called removedValue, type int
+    Set removedValue equal to the result of calling myHeap.deleteRoot()
+    Print removedValue to the console
+
+    Call myHeap.display() again
+    Call myHeap.heapSort()
+
+    Return 0
